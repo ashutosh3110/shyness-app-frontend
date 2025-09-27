@@ -103,8 +103,30 @@ const VideoUpload = () => {
   console.log('VideoUpload: topicError:', topicError);
   console.log('VideoUpload: selectedTopic state:', selectedTopic);
 
-  // Upload mutation
-  const uploadMutation = useMutation(videosAPI.uploadVideo, {
+  // Upload mutation using direct fetch
+  const uploadMutation = useMutation(async (formData) => {
+    console.log('VideoUpload: Starting direct fetch upload...');
+    const token = localStorage.getItem('token');
+    
+    const response = await fetch('https://shyness-app-backend.vercel.app/api/videos/upload', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        // Don't set Content-Type for FormData - let browser set it with boundary
+      },
+      body: formData
+    });
+
+    console.log('VideoUpload: Fetch response status:', response.status);
+    console.log('VideoUpload: Fetch response headers:', response.headers);
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    return response.json();
+  }, {
     onSuccess: (response) => {
       console.log('VideoUpload: Upload successful:', response);
       toast.success('Video uploaded successfully!');
@@ -115,26 +137,10 @@ const VideoUpload = () => {
     },
     onError: (error) => {
       console.error('VideoUpload: Upload error:', error);
-      console.error('VideoUpload: Error response:', error.response);
-      console.error('VideoUpload: Error data:', error.response?.data);
-      console.error('VideoUpload: Error status:', error.response?.status);
-      console.error('VideoUpload: Error statusText:', error.response?.statusText);
-      console.error('VideoUpload: Full error object:', error);
-      console.error('VideoUpload: Error config:', error.config);
-      console.error('VideoUpload: Error request:', error.request);
+      console.error('VideoUpload: Error message:', error.message);
+      console.error('VideoUpload: Error stack:', error.stack);
       
-      // Check if it's a network error
-      if (error.code === 'ERR_NETWORK') {
-        console.error('VideoUpload: Network error detected');
-        console.error('VideoUpload: API URL:', error.config?.url);
-        console.error('VideoUpload: Base URL:', error.config?.baseURL);
-        console.error('VideoUpload: Headers:', error.config?.headers);
-        toast.error('Network error: Unable to connect to server. Please check your internet connection and try again.');
-      } else {
-        const message = error.response?.data?.message || error.message || 'Upload failed';
-        const details = error.response?.data?.errors ? JSON.stringify(error.response.data.errors) : '';
-        toast.error(`Upload failed: ${message} ${details ? `(${details})` : ''}`);
-      }
+      toast.error(`Upload failed: ${error.message}`);
     }
   });
 
