@@ -18,7 +18,7 @@ const TopicSelection = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState('');
   const [selectedTopic, setSelectedTopic] = useState(null);
 
-  const { data: topicsData, isLoading: topicsLoading, error: topicsError } = useQuery(
+  const { data: topicsData, isLoading: topicsLoading, error: topicsError, refetch } = useQuery(
     ['topics', selectedCategory, selectedDifficulty],
     async () => {
       console.log('TopicSelection: Making API call to getTopics');
@@ -44,7 +44,7 @@ const TopicSelection = () => {
     }
   );
 
-  const { refetch: refetchRandom } = useQuery(
+  const { data: randomTopic, refetch: refetchRandom } = useQuery(
     'randomTopic',
     async () => {
       console.log('TopicSelection: Making API call to getRandomTopic');
