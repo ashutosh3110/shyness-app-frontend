@@ -108,6 +108,28 @@ const VideoUpload = () => {
     console.log('VideoUpload: Starting direct fetch upload...');
     const token = localStorage.getItem('token');
     
+    // First test the simple endpoint
+    try {
+      console.log('VideoUpload: Testing simple endpoint first...');
+      const testResponse = await fetch('https://shyness-app-backend.vercel.app/api/videos/test-upload', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ test: 'data' })
+      });
+      
+      console.log('VideoUpload: Test endpoint response status:', testResponse.status);
+      const testData = await testResponse.json();
+      console.log('VideoUpload: Test endpoint response:', testData);
+    } catch (testError) {
+      console.error('VideoUpload: Test endpoint failed:', testError);
+      throw new Error(`Test endpoint failed: ${testError.message}`);
+    }
+    
+    // Now try the actual upload
+    console.log('VideoUpload: Proceeding with actual upload...');
     const response = await fetch('https://shyness-app-backend.vercel.app/api/videos/upload', {
       method: 'POST',
       headers: {
