@@ -19,6 +19,9 @@ const ForgotPassword = () => {
   const onSubmit = async (data) => {
     setIsLoading(true);
     try {
+      console.log('ForgotPassword: Making API call to forgot-password');
+      console.log('ForgotPassword: API URL:', 'https://shyness-app-backend.vercel.app/api/auth/forgot-password');
+      
       const response = await fetch('https://shyness-app-backend.vercel.app/api/auth/forgot-password', {
         method: 'POST',
         headers: {
