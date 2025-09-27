@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { topicsAPI, videosAPI } from '../services/api';
@@ -7,7 +7,6 @@ import {
   Video, 
   Play, 
   Pause, 
-  RotateCcw,
   CheckCircle,
   XCircle,
   AlertCircle,
@@ -27,7 +26,6 @@ const VideoUpload = () => {
   
   const [selectedFile, setSelectedFile] = useState(null);
   const [videoPreview, setVideoPreview] = useState(null);
-  const [isRecording, setIsRecording] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [formData, setFormData] = useState({
@@ -335,12 +333,6 @@ const VideoUpload = () => {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
-  const getVideoDuration = () => {
-    if (videoRef.current) {
-      return Math.round(videoRef.current.duration);
-    }
-    return 0;
-  };
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
