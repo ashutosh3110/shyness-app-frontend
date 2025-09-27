@@ -2,7 +2,7 @@
   "name": "shyness-app-frontend",
   "version": "1.0.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "https://shyness-app-frontend-eg8n.vercel.app",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
