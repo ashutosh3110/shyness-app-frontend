@@ -60,6 +60,35 @@ const PaymentSection = () => {
   useEffect(() => {
     fetchUserPayments();
     fetchUserStats();
+    
+    // Add global test function for debugging
+    window.testDashboardAPI = async () => {
+      console.log('🧪 Testing Dashboard API manually...');
+      try {
+        const token = localStorage.getItem('token');
+        console.log('🧪 Token:', token);
+        
+        const response = await fetch('https://shyness-app-backend.vercel.app/api/user/dashboard', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        console.log('🧪 Response status:', response.status);
+        console.log('🧪 Response headers:', response.headers);
+        
+        const data = await response.json();
+        console.log('🧪 Response data:', data);
+        
+        return { success: response.ok, data };
+      } catch (error) {
+        console.error('🧪 Test failed:', error);
+        return { success: false, error };
+      }
+    };
+    
+    console.log('🧪 Test function added: window.testDashboardAPI()');
   }, []);
 
   const getStatusIcon = (status) => {
@@ -187,11 +216,15 @@ const Dashboard = () => {
         const response = await userAPI.getDashboard();
         console.log('Dashboard: API response received:', response);
         console.log('Dashboard: Response data:', response.data);
+        console.log('Dashboard: Response status:', response.status);
         return response;
       } catch (apiError) {
         console.error('Dashboard: API call failed:', apiError);
         console.error('Dashboard: API error response:', apiError.response);
         console.error('Dashboard: API error status:', apiError.response?.status);
+        console.error('Dashboard: API error data:', apiError.response?.data);
+        console.error('Dashboard: API error message:', apiError.message);
+        console.error('Dashboard: API error config:', apiError.config);
         throw apiError;
       }
     },
