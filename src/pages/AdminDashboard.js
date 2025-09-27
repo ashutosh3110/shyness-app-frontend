@@ -100,16 +100,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // Test manual fetch on mount
-  useEffect(() => {
-    console.log('🔍 Testing manual fetch on mount...');
-    // Test overview fetch
-    fetchOverview();
-    // Test users fetch
-    fetchUsers();
-    // Test videos fetch  
-    fetchVideos();
-  }, []);
 
   // Add token validation function
   const validateToken = async () => {
@@ -189,6 +179,17 @@ const AdminDashboard = () => {
     console.log('🔄 Refetching videos...');
     fetchVideos();
   };
+
+  // Test manual fetch on mount
+  useEffect(() => {
+    console.log('🔍 Testing manual fetch on mount...');
+    // Test overview fetch
+    fetchOverview();
+    // Test users fetch
+    fetchUsers();
+    // Test videos fetch  
+    fetchVideos();
+  }, [fetchVideos]);
 
   // Fetch videos when video section is active
   useEffect(() => {
