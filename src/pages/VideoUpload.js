@@ -111,7 +111,7 @@ const VideoUpload = () => {
     // First test the simple endpoint
     try {
       console.log('VideoUpload: Testing simple endpoint first...');
-      const testResponse = await fetch('https://shyness-app-backend.vercel.app/api/videos/test-upload', {
+      const testResponse = await fetch('https://shyness-app-backend.vercel.app/test-upload', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
