@@ -38,10 +38,10 @@ const PaymentInfo = () => {
       console.log('Profile response:', response.data);
       
       // Check if user data exists
-      if (response.data && response.data.user && response.data.user.paymentInfo) {
-        setPaymentInfo(response.data.user.paymentInfo);
+      if (response.data && response.data.data && response.data.data.user && response.data.data.user.paymentInfo) {
+        setPaymentInfo(response.data.data.user.paymentInfo);
         // Pre-fill form with existing data
-        const info = response.data.user.paymentInfo;
+        const info = response.data.data.user.paymentInfo;
         setValue('preferredMethod', info.preferredMethod || 'upi');
         
         if (info.bankAccount) {
@@ -118,7 +118,7 @@ const PaymentInfo = () => {
       
       if (response.data.success) {
         toast.success('Payment information updated successfully!');
-        setPaymentInfo(response.data.user.paymentInfo);
+        setPaymentInfo(response.data.data.user.paymentInfo);
       }
     } catch (error) {
       console.error('Error updating payment info:', error);
