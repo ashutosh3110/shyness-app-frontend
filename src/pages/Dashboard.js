@@ -26,13 +26,18 @@ const PaymentSection = () => {
     try {
       setLoading(true);
       console.log('🔍 Fetching user payments...');
+      console.log('🔍 Payment API Base URL:', process.env.REACT_APP_API_URL || 'https://shyness-app-backend.vercel.app/api');
+      console.log('🔍 Token exists:', !!localStorage.getItem('token'));
       
       const response = await paymentAPI.getAllPayments();
-      console.log('📊 User Payments API Response:', response.data);
+      console.log('📊 User Payments API Response:', response);
+      console.log('📊 User Payments Response Data:', response.data);
       
       setPayments(response.data.data?.payments || []);
     } catch (error) {
       console.error('❌ User Payments API error:', error);
+      console.error('❌ User Payments Error Response:', error.response);
+      console.error('❌ User Payments Error Status:', error.response?.status);
     } finally {
       setLoading(false);
     }
@@ -40,10 +45,15 @@ const PaymentSection = () => {
 
   const fetchUserStats = async () => {
     try {
+      console.log('📊 Fetching user stats...');
       const response = await userAPI.getDashboard();
+      console.log('📊 User Stats API Response:', response);
+      console.log('📊 User Stats Response Data:', response.data);
       setUserStats(response.data);
     } catch (error) {
       console.error('❌ User Stats API error:', error);
+      console.error('❌ User Stats Error Response:', error.response);
+      console.error('❌ User Stats Error Status:', error.response?.status);
     }
   };
 
@@ -170,9 +180,20 @@ const Dashboard = () => {
     'dashboard',
     async () => {
       console.log('Dashboard: Making API call to getDashboard');
-      const response = await userAPI.getDashboard();
-      console.log('Dashboard: API response received:', response);
-      return response;
+      console.log('Dashboard: API Base URL:', process.env.REACT_APP_API_URL || 'https://shyness-app-backend.vercel.app/api');
+      console.log('Dashboard: Token exists:', !!localStorage.getItem('token'));
+      
+      try {
+        const response = await userAPI.getDashboard();
+        console.log('Dashboard: API response received:', response);
+        console.log('Dashboard: Response data:', response.data);
+        return response;
+      } catch (apiError) {
+        console.error('Dashboard: API call failed:', apiError);
+        console.error('Dashboard: API error response:', apiError.response);
+        console.error('Dashboard: API error status:', apiError.response?.status);
+        throw apiError;
+      }
     },
     {
       refetchInterval: 30000, // Refetch every 30 seconds
@@ -180,11 +201,13 @@ const Dashboard = () => {
       retryDelay: 1000,
       onSuccess: (data) => {
         console.log('Dashboard: Query success - Dashboard data:', data);
+        console.log('Dashboard: Dashboard data structure:', data?.data);
       },
       onError: (error) => {
         console.error('Dashboard: Query error:', error);
         console.error('Dashboard: Error response:', error.response);
         console.error('Dashboard: Error status:', error.response?.status);
+        console.error('Dashboard: Error message:', error.message);
       }
     }
   );
