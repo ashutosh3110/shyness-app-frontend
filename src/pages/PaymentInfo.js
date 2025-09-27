@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { 
   CreditCard, 
@@ -31,12 +31,7 @@ const PaymentInfo = () => {
 
   const selectedMethod = watch('preferredMethod');
 
-  // Fetch current payment info
-  useEffect(() => {
-    fetchPaymentInfo();
-  }, []);
-
-  const fetchPaymentInfo = async () => {
+  const fetchPaymentInfo = useCallback(async () => {
     try {
       setLoading(true);
       const response = await userAPI.getProfile();
@@ -84,7 +79,12 @@ const PaymentInfo = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [setValue]);
+
+  // Fetch current payment info
+  useEffect(() => {
+    fetchPaymentInfo();
+  }, [fetchPaymentInfo]);
 
   const onSubmit = async (data) => {
     try {

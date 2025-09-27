@@ -6,11 +6,9 @@ import {
   Clock, 
   AlertCircle, 
   Target,
-  TrendingUp,
-  Award
+  TrendingUp
 } from 'lucide-react';
 import LoadingSpinner from '../components/LoadingSpinner';
-import toast from 'react-hot-toast';
 
 const Payments = () => {
   const [payments, setPayments] = useState([]);
