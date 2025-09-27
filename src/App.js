@@ -31,7 +31,11 @@ function App() {
 
     // Show loading spinner while checking authentication
     if (loading) {
-      return <LoadingSpinner />;
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <LoadingSpinner size="lg" />
+        </div>
+      );
     }
   }
 
@@ -39,7 +43,11 @@ function App() {
   const hasToken = !!localStorage.getItem('token');
   if (hasToken && !user && !loading) {
     console.log('App component - Has token but no user, showing loading');
-    return <LoadingSpinner />;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <LoadingSpinner size="lg" />
+      </div>
+    );
   }
 
   return (

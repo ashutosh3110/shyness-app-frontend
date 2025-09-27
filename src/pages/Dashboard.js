@@ -191,16 +191,36 @@ const Dashboard = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <LoadingSpinner size="lg" />
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <LoadingSpinner size="lg" />
+          <p className="text-gray-600 mt-4">Loading dashboard...</p>
+        </div>
       </div>
     );
   }
 
   if (error) {
+    console.error('Dashboard error:', error);
     return (
-      <div className="text-center py-12">
-        <p className="text-red-600">Error loading dashboard data</p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center py-12">
+          <div className="bg-white rounded-lg shadow p-8 max-w-md mx-auto">
+            <div className="text-red-500 text-6xl mb-4">⚠️</div>
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">Error Loading Dashboard</h2>
+            <p className="text-gray-600 mb-4">
+              {error.response?.status === 401 
+                ? 'Your session has expired. Please log in again.' 
+                : 'Unable to load dashboard data. Please try again.'}
+            </p>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -209,8 +229,20 @@ const Dashboard = () => {
   
   if (!dashboardData?.data) {
     return (
-      <div className="text-center py-12">
-        <p className="text-red-600">No dashboard data available</p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center py-12">
+          <div className="bg-white rounded-lg shadow p-8 max-w-md mx-auto">
+            <div className="text-gray-400 text-6xl mb-4">📊</div>
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">No Dashboard Data</h2>
+            <p className="text-gray-600 mb-4">Unable to load dashboard information.</p>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
