@@ -90,7 +90,7 @@ export const AuthProvider = ({ children }) => {
           }
         }
       } else {
-        console.log('AuthContext: No token found, setting AUTH_FAILURE');
+        console.log('AuthContext: No token found, setting loading to false');
         dispatch({ type: 'AUTH_FAILURE', payload: null });
       }
     };

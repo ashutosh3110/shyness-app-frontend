@@ -39,17 +39,6 @@ function App() {
     }
   }
 
-  // Additional check: if we have a token but no user, we might be in a loading state
-  const hasToken = !!localStorage.getItem('token');
-  if (hasToken && !user && !loading) {
-    console.log('App component - Has token but no user, showing loading');
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
-  }
-
   return (
     <Routes>
       {/* Public routes */}
