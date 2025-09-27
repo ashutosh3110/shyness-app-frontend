@@ -107,25 +107,25 @@ export const videosAPI = {
 // User API
 export const userAPI = {
   getStreak: () =>
-    api.get('/user/streak'),
+    api.get('/users/streak'),
   
   getRewards: () =>
-    api.get('/user/rewards'),
+    api.get('/users/rewards'),
   
   getDashboard: () =>
-    api.get('/user/dashboard'),
+    api.get('/users/dashboard'),
   
   getStats: () =>
-    api.get('/user/stats'),
+    api.get('/users/stats'),
   
   getProfile: () =>
     api.get('/auth/me'),
   
   updatePaymentInfo: (data) =>
-    api.put('/user/payment-info', data),
+    api.put('/users/payment-info', data),
   
   getPaymentInfo: () =>
-    api.get('/user/payment-info'),
+    api.get('/users/payment-info'),
 };
 
 
