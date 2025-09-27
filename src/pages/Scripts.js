@@ -3,9 +3,7 @@ import {
   BookOpen, 
   Download, 
   Search, 
-  Filter, 
   Clock, 
-  Star,
   Users,
   Briefcase,
   User,
@@ -413,7 +411,7 @@ const Scripts = () => {
                                       return (
                                         <div key={lineIndex} className="flex items-start mb-2">
                                           <span className="text-blue-600 mr-3 mt-1">•</span>
-                                          <span className="flex-1">{line.replace(/^[\*\-\s]+/, '')}</span>
+                                          <span className="flex-1">{line.replace(/^[*\-\s]+/, '')}</span>
                                         </div>
                                       );
                                     } else if (line.match(/^\d+\./)) {
@@ -446,7 +444,7 @@ const Scripts = () => {
                                       return (
                                         <div key={lineIndex} className="flex items-start mb-2">
                                           <span className="text-blue-600 mr-3 mt-1">•</span>
-                                          <span className="flex-1">{line.replace(/^[\*\-\s]+/, '')}</span>
+                                          <span className="flex-1">{line.replace(/^[*\-\s]+/, '')}</span>
                                         </div>
                                       );
                                     } else if (line.match(/^\d+\./)) {

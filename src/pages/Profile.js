@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from 'react-query';
+import { useQuery, useMutation } from 'react-query';
 import { useAuth } from '../contexts/AuthContext';
 import { userAPI, authAPI } from '../services/api';
 import { 
   User, 
   Trophy, 
-  Target, 
-  Calendar,
-  Award,
   Edit,
   Save,
   X
@@ -19,7 +16,6 @@ const Profile = () => {
   const { user, updateUser } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState({ name: user?.name || '' });
-  const queryClient = useQueryClient();
 
   const { data: rewardsData, isLoading: rewardsLoading } = useQuery(
     'userRewards',
