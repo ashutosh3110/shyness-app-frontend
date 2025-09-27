@@ -120,10 +120,21 @@ const VideoUpload = () => {
       console.error('VideoUpload: Error status:', error.response?.status);
       console.error('VideoUpload: Error statusText:', error.response?.statusText);
       console.error('VideoUpload: Full error object:', error);
+      console.error('VideoUpload: Error config:', error.config);
+      console.error('VideoUpload: Error request:', error.request);
       
-      const message = error.response?.data?.message || error.message || 'Upload failed';
-      const details = error.response?.data?.errors ? JSON.stringify(error.response.data.errors) : '';
-      toast.error(`Upload failed: ${message} ${details ? `(${details})` : ''}`);
+      // Check if it's a network error
+      if (error.code === 'ERR_NETWORK') {
+        console.error('VideoUpload: Network error detected');
+        console.error('VideoUpload: API URL:', error.config?.url);
+        console.error('VideoUpload: Base URL:', error.config?.baseURL);
+        console.error('VideoUpload: Headers:', error.config?.headers);
+        toast.error('Network error: Unable to connect to server. Please check your internet connection and try again.');
+      } else {
+        const message = error.response?.data?.message || error.message || 'Upload failed';
+        const details = error.response?.data?.errors ? JSON.stringify(error.response.data.errors) : '';
+        toast.error(`Upload failed: ${message} ${details ? `(${details})` : ''}`);
+      }
     }
   });
 
