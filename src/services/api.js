@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://your-backend-url.vercel.app/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://shyness-app-backend.vercel.app/api';
 
 // Create axios instance
 const api = axios.create({
@@ -128,6 +128,27 @@ export const userAPI = {
     api.get('/user/payment-info'),
 };
 
+
+// Scripts API
+export const scriptsAPI = {
+  getCategories: () =>
+    api.get('/scripts/categories'),
+  
+  getScriptsByCategory: (category, params) =>
+    api.get(`/scripts/category/${category}`, { params }),
+  
+  getScript: (id) =>
+    api.get(`/scripts/${id}`),
+  
+  searchScripts: (params) =>
+    api.get('/scripts/search', { params }),
+  
+  downloadScript: (id) =>
+    api.post(`/scripts/${id}/download`),
+  
+  getScriptStats: () =>
+    api.get('/scripts/stats'),
+};
 
 // Payment API
 export const paymentAPI = {

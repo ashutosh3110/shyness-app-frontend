@@ -43,7 +43,7 @@ const Scripts = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/scripts/categories');
+      const response = await fetch('https://shyness-app-backend.vercel.app/api/scripts/categories');
       const data = await response.json();
       if (data.success) {
         setCategories(data.data);
@@ -56,7 +56,7 @@ const Scripts = () => {
   const fetchScripts = async (category, search = '', difficultyFilter = '') => {
     try {
       setLoading(true);
-      let url = `http://localhost:5000/api/scripts/category/${category}`;
+      let url = `https://shyness-app-backend.vercel.app/api/scripts/category/${category}`;
       const params = new URLSearchParams();
       
       if (search) params.append('search', search);
@@ -81,7 +81,7 @@ const Scripts = () => {
 
   const fetchScript = async (scriptId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/scripts/${scriptId}`);
+      const response = await fetch(`https://shyness-app-backend.vercel.app/api/scripts/${scriptId}`);
       const data = await response.json();
       
       if (data.success) {
@@ -95,7 +95,7 @@ const Scripts = () => {
   const downloadScript = async (scriptId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/scripts/${scriptId}/download`, {
+      const response = await fetch(`https://shyness-app-backend.vercel.app/api/scripts/${scriptId}/download`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
