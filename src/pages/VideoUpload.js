@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { topicsAPI, videosAPI } from '../services/api';
+import { topicsAPI } from '../services/api';
 import { 
   Upload, 
   Video, 
