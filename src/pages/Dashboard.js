@@ -15,7 +15,6 @@ import {
   AlertCircle
 } from 'lucide-react';
 import LoadingSpinner from '../components/LoadingSpinner';
-import toast from 'react-hot-toast';
 
 // Payment Section Component
 const PaymentSection = () => {
@@ -220,8 +219,7 @@ const Dashboard = () => {
     user = {}, 
     streak = {}, 
     recentVideos = [], 
-    statistics = {}, 
-    monthlyUploads = [] 
+    statistics = {} 
   } = dashboardData.data || {};
   
   console.log('Dashboard - user:', user);

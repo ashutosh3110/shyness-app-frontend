@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { adminDashboardAPI } from '../services/adminAPI';
@@ -7,19 +7,15 @@ import {
   Video, 
   TrendingUp, 
   DollarSign,
-  Eye,
   CheckCircle,
   XCircle,
   AlertCircle,
   Clock,
-  Filter,
-  Search,
   RefreshCw,
   Play,
   Trash2,
   Edit,
-  LogOut,
-  Settings
+  LogOut
 } from 'lucide-react';
 import LoadingSpinner from '../components/LoadingSpinner';
 import toast from 'react-hot-toast';
@@ -71,11 +67,9 @@ const AdminDashboard = () => {
 
   // Manual overview data fetch
   const [overviewDataManual, setOverviewDataManual] = useState(null);
-  const [overviewLoadingManual, setOverviewLoadingManual] = useState(false);
 
   const fetchOverview = async () => {
     try {
-      setOverviewLoadingManual(true);
       console.log('🔍 Manually fetching admin overview...');
       
       const adminToken = localStorage.getItem('adminToken');
@@ -102,7 +96,7 @@ const AdminDashboard = () => {
     } catch (error) {
       console.error('❌ Manual Overview API error:', error);
     } finally {
-      setOverviewLoadingManual(false);
+      // Loading completed
     }
   };
 
@@ -139,7 +133,7 @@ const AdminDashboard = () => {
   };
 
   // Fetch overview data
-  const { data: overviewData, isLoading: overviewLoading, refetch: refetchOverview } = useQuery(
+  const { data: overviewData } = useQuery(
     'adminOverview',
     adminDashboardAPI.getOverview,
     {
@@ -157,7 +151,7 @@ const AdminDashboard = () => {
   const [videosData, setVideosData] = useState(null);
   const [videosLoading, setVideosLoading] = useState(false);
 
-  const fetchVideos = async () => {
+  const fetchVideos = useCallback(async () => {
     try {
       setVideosLoading(true);
       console.log('🔍 Manually fetching admin videos with filters:', videoFilters);
@@ -188,7 +182,7 @@ const AdminDashboard = () => {
     } finally {
       setVideosLoading(false);
     }
-  };
+  }, [videoFilters]);
 
   // Refetch videos function
   const refetchVideos = () => {
@@ -203,7 +197,7 @@ const AdminDashboard = () => {
       console.log('🔍 useEffect - Calling fetchVideos()');
       fetchVideos();
     }
-  }, [activeSection, videoFilters]);
+  }, [activeSection, videoFilters, fetchVideos]);
 
   // Fetch users when users section is active
   useEffect(() => {
