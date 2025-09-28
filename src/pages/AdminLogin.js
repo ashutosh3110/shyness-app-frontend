@@ -61,7 +61,7 @@ const AdminLogin = () => {
     // Manual API call for debugging
     try {
       console.log('🔍 Making manual admin login API call...');
-      const response = await fetch('http://localhost:5000/api/admin/auth/login', {
+      const response = await fetch('https://shyness-app-backend.vercel.app/api/admin/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
