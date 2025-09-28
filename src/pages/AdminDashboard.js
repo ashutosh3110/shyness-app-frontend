@@ -107,7 +107,7 @@ const AdminDashboard = () => {
       const adminToken = localStorage.getItem('adminToken');
       if (!adminToken) return false;
       
-      const response = await fetch('http://localhost:5000/api/admin/auth/me', {
+      const response = await fetch('https://shyness-app-backend.vercel.app/api/admin/auth/me', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${adminToken}`,
