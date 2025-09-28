@@ -140,16 +140,20 @@ const AdminDashboard = () => {
   };
 
   // Fetch overview data
-  const { data: overviewData } = useQuery(
+  const { data: overviewData, isLoading: overviewLoading, error: overviewError } = useQuery(
     'adminOverview',
     adminDashboardAPI.getOverview,
     {
       refetchInterval: 30000,
       onSuccess: (data) => {
-        console.log('Admin Overview: Data received:', data);
+        console.log('✅ Admin Overview: Data received:', data);
+        console.log('✅ Overview data structure:', data?.data);
       },
       onError: (error) => {
-        console.error('Admin Overview: Error:', error);
+        console.error('❌ Admin Overview: Error:', error);
+        console.error('❌ Overview error response:', error.response);
+        console.error('❌ Overview error status:', error.response?.status);
+        console.error('❌ Overview error data:', error.response?.data);
       }
     }
   );
