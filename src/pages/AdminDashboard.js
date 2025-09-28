@@ -140,7 +140,7 @@ const AdminDashboard = () => {
   };
 
   // Fetch overview data
-  const { data: overviewData, isLoading: overviewLoading, error: overviewError } = useQuery(
+  const { data: overviewData } = useQuery(
     'adminOverview',
     adminDashboardAPI.getOverview,
     {
