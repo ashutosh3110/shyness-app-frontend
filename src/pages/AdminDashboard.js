@@ -45,14 +45,19 @@ const AdminDashboard = () => {
       }
       
       // Validate token with server
+      console.log('🔍 Starting token validation...');
       const isValid = await validateToken();
+      console.log('🔍 Token validation result:', isValid);
+      
       if (!isValid) {
-        console.log('Token validation failed, redirecting to admin login');
+        console.log('❌ Token validation failed, redirecting to admin login');
         localStorage.removeItem('adminToken');
         localStorage.removeItem('adminUser');
         navigate('/admin/login');
         return;
       }
+      
+      console.log('✅ Token validation successful');
       
       console.log('Admin dashboard loaded successfully');
     };
@@ -105,8 +110,12 @@ const AdminDashboard = () => {
   const validateToken = async () => {
     try {
       const adminToken = localStorage.getItem('adminToken');
-      if (!adminToken) return false;
+      if (!adminToken) {
+        console.log('❌ No admin token found');
+        return false;
+      }
       
+      console.log('🔍 Validating token with server...');
       const response = await fetch('https://shyness-app-backend.vercel.app/api/admin/auth/me', {
         method: 'GET',
         headers: {
@@ -115,9 +124,17 @@ const AdminDashboard = () => {
         }
       });
       
+      console.log('🔍 Token validation response status:', response.status);
+      console.log('🔍 Token validation response ok:', response.ok);
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.log('🔍 Token validation error data:', errorData);
+      }
+      
       return response.ok;
     } catch (error) {
-      console.error('Token validation failed:', error);
+      console.error('❌ Token validation failed:', error);
       return false;
     }
   };
