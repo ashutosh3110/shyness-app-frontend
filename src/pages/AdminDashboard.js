@@ -80,7 +80,7 @@ const AdminDashboard = () => {
       const adminToken = localStorage.getItem('adminToken');
       console.log('🔑 Using admin token for overview:', adminToken);
       
-      const response = await fetch('http://localhost:5000/api/admin/dashboard/overview', {
+      const response = await fetch('https://shyness-app-backend.vercel.app/api/admin/dashboard/overview', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${adminToken}`,
@@ -170,7 +170,7 @@ const AdminDashboard = () => {
       const adminToken = localStorage.getItem('adminToken');
       console.log('🔑 Using admin token:', adminToken);
       
-      const response = await fetch('http://localhost:5000/api/admin/dashboard/videos', {
+      const response = await fetch('https://shyness-app-backend.vercel.app/api/admin/dashboard/videos', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${adminToken}`,
@@ -252,7 +252,7 @@ const AdminDashboard = () => {
       const adminToken = localStorage.getItem('adminToken');
       console.log('🔑 Using admin token for users:', adminToken);
       
-      const response = await fetch('http://localhost:5000/api/admin/dashboard/users', {
+      const response = await fetch('https://shyness-app-backend.vercel.app/api/admin/dashboard/users', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${adminToken}`,
@@ -299,7 +299,7 @@ const AdminDashboard = () => {
       const adminToken = localStorage.getItem('adminToken');
       console.log('🔑 Using admin token for payments:', adminToken);
       
-      const response = await fetch('http://localhost:5000/api/admin/dashboard/payments', {
+      const response = await fetch('https://shyness-app-backend.vercel.app/api/admin/dashboard/payments', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${adminToken}`,
@@ -339,7 +339,7 @@ const AdminDashboard = () => {
       const adminToken = localStorage.getItem('adminToken');
       console.log('🔑 Using admin token for eligible users:', adminToken);
       
-      const response = await fetch('http://localhost:5000/api/admin/dashboard/eligible-users', {
+      const response = await fetch('https://shyness-app-backend.vercel.app/api/admin/dashboard/eligible-users', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${adminToken}`,
@@ -371,7 +371,7 @@ const AdminDashboard = () => {
       
       const adminToken = localStorage.getItem('adminToken');
       
-      const response = await fetch('http://localhost:5000/api/admin/dashboard/create-payment', {
+      const response = await fetch('https://shyness-app-backend.vercel.app/api/admin/dashboard/create-payment', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${adminToken}`,
@@ -409,7 +409,7 @@ const AdminDashboard = () => {
       
       const adminToken = localStorage.getItem('adminToken');
       
-      const response = await fetch(`http://localhost:5000/api/admin/dashboard/payments/${paymentId}/status`, {
+      const response = await fetch(`https://shyness-app-backend.vercel.app/api/admin/dashboard/payments/${paymentId}/status`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${adminToken}`,
