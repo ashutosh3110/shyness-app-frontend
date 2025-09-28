@@ -229,7 +229,11 @@ const Dashboard = () => {
       }
     },
     {
-      refetchInterval: 30000, // Refetch every 30 seconds
+      refetchInterval: 5000, // Refetch every 5 seconds
+      refetchOnWindowFocus: true, // Refetch when window gains focus
+      refetchOnMount: true, // Always refetch on mount
+      staleTime: 0, // Data is immediately stale
+      cacheTime: 0, // Don't cache data
       retry: 3,
       retryDelay: 1000,
       onSuccess: (data) => {
@@ -432,9 +436,17 @@ const Dashboard = () => {
               Ready to continue building your confidence? Let's practice speaking today!
             </p>
           </div>
-          <div className="text-left sm:text-right">
-            <p className="text-xs sm:text-sm opacity-90">Next Goal</p>
-            <p className="text-xl sm:text-2xl font-bold">{streak?.nextGoal || 8} days</p>
+          <div className="text-left sm:text-right flex flex-col sm:items-end space-y-2">
+            <button
+              onClick={() => window.location.reload()}
+              className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-3 py-1 rounded text-sm transition-colors"
+            >
+              🔄 Refresh Data
+            </button>
+            <div>
+              <p className="text-xs sm:text-sm opacity-90">Next Goal</p>
+              <p className="text-xl sm:text-2xl font-bold">{streak?.nextGoal || 8} days</p>
+            </div>
           </div>
         </div>
       </div>
